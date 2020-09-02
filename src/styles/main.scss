@@ -1,3 +1,51 @@
-body {
-  margin: 0;
+@import "global-var";
+@import "reset";
+
+.calendar {
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: ($cellSize + ($cellGap * 2)) * 7;
+}
+
+@each $days in $daysQuantity {
+  @for $i from 1 through $days {
+    .calendar-#{$days} :nth-child(#{$i}) {
+      background-color: #eee;
+      
+      width: $cellSize;
+      height: $cellSize;
+      border: 1px solid black;
+
+      margin-top: $cellGap;
+      margin-right: $cellGap;
+
+      text-align: center;
+      transition: 0.5s;
+
+      &:after {
+        content: "#{$i}";
+        font-size: 30px;
+        line-height: $cellSize;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: pink;
+        transform: translate(0, -20px);
+      }
+    }
+  }
+}
+
+@each $dayName, $dayNum in $weekDays {
+  .calendar-#{$dayName} :first-child {
+    margin-left: ($cellSize + $cellGap) * ($dayNum - 1);
+  }
 }
