@@ -12,33 +12,40 @@
   transform: translate(-50%, -50%);
 
   width: ($cellSize + ($cellGap * 2)) * 7;
+
+  & > div {
+    background-color: #eee;
+    width: $cellSize;
+    height: $cellSize;
+    border: 1px solid black;
+    margin-top: $cellGap;
+    margin-right: $cellGap;
+
+    text-align: center;
+    transition: background-color 0.5s, transform 0.5s;
+
+    opacity: 0;
+  }
+
+  & > div::after {
+    font-size: 30px;
+    line-height: $cellSize;
+  }
+
+  & > div:hover {
+    background-color: pink;
+    transform: translate(0, -20px);
+  }
 }
 
 @each $days in $daysQuantity {
   @for $i from 1 through $days {
     .calendar-#{$days} :nth-child(#{$i}) {
-      background-color: #eee;
-      
-      width: $cellSize;
-      height: $cellSize;
-      border: 1px solid black;
-
-      margin-top: $cellGap;
-      margin-right: $cellGap;
-
-      text-align: center;
-      transition: 0.5s;
+      opacity: 1;
+      cursor: pointer;
 
       &:after {
         content: "#{$i}";
-        font-size: 30px;
-        line-height: $cellSize;
-      }
-
-      &:hover {
-        cursor: pointer;
-        background-color: pink;
-        transform: translate(0, -20px);
       }
     }
   }
